@@ -1,7 +1,7 @@
 /* 1. Выберите все строки из таблицы suppliers Предварительно подключитесь к базе данных northwind */
 SELECT * FROM suppliers;
 
-/* Выведите столбцы id, order_id из таблицы order_details, а также вычисляемый столбец category в зависимости от значений unit_price Если unit_price > 10 то значение столбца  category 'Expensive' В противном случае 'Cheap' Написать запрос двумя способами -  с применением операторов IF и CASE */
+/* 2. Выведите столбцы id, order_id из таблицы order_details, а также вычисляемый столбец category в зависимости от значений unit_price Если unit_price > 10 то значение столбца  category 'Expensive' В противном случае 'Cheap' Написать запрос двумя способами -  с применением операторов IF и CASE */
 SELECT 
 	id, 
     order_id,
@@ -21,7 +21,7 @@ IF(unit_price > 10, "Expensive", "Cheap") AS category
 FROM
 	order_details;
     
-/* Вывести все строки там, где purchase_order_id не указано. При этом дополнительно создать столбец total_price как произведение quantity * unit_price */
+/* 3. Вывести все строки там, где purchase_order_id не указано. При этом дополнительно создать столбец total_price как произведение quantity * unit_price */
 SELECT * FROM order_details;
 
 SELECT 
@@ -32,7 +32,7 @@ FROM order_details
 WHERE 
 	purchase_order_id IS NULL;
     
-/* Вывести один столбец из таблицы employees содержащий имя и фамилию написанные через пробел Вывести 3 строки начиная со второй */
+/* 4. Вывести один столбец из таблицы employees содержащий имя и фамилию написанные через пробел Вывести 3 строки начиная со второй */
 SELECT * FROM employees;
 
 SELECT 
@@ -41,7 +41,7 @@ FROM
 	employees
 LIMIT 3 OFFSET 1;
 
-/* На основе таблицы orders вывести один столбец - с годом и месяцем из order_date в формате 'год-месяц' */
+/* 5. На основе таблицы orders вывести один столбец - с годом и месяцем из order_date в формате 'год-месяц' */
 SELECT * FROM orders;
 
 SELECT 
@@ -49,7 +49,7 @@ SELECT
 FROM 
   orders;
 
-/* Выведите уникальные имена компаний из таблицы customers Отсортируйте их по убыванию */
+/* 6. Выведите уникальные имена компаний из таблицы customers Отсортируйте их по убыванию */
 SELECT * FROM customers;
 
 SELECT DISTINCT company
