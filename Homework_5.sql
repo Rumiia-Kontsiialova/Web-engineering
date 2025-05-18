@@ -29,13 +29,16 @@ ORDER BY
 /* 4. Посчитайте заказы по дате доставки date_received 
 Считаем только те продукты, количество quantity которых больше 30 */
 SELECT
-	COUNT(date_received) AS count_date_received
+    date_received,
+    COUNT(*) AS count_orders
 FROM
 	purchase_order_details
+WHERE 
+    quantity > 30
 GROUP BY 
     date_received
-HAVING 
-    COUNT(date_received) > 30;
+ORDER BY 
+    date_received;
     
 /* 5. Посчитайте суммарную стоимость заказов в каждую из дат 
 Стоимость заказа - произведение quantity на unit_cost */
@@ -51,25 +54,35 @@ ORDER BY
 /* 6. Сгруппируйте товары по unit_cost и вычислите среднее и максимальное значение quantity только для товаров, 
 где purchase_order_id не больше 100 */
 SELECT 
-	unit_cost,
-    AVG(quantity),
-    MAX(quantity)
+    unit_cost,
+    AVG(quantity) AS avg_quantity,
+    MAX(quantity) AS max_quantity
 FROM 
-	purchase_order_details
+    purchase_order_details
+WHERE 
+    purchase_order_id <= 100
 GROUP BY
-	unit_cost
+    unit_cost
 HAVING
-	AVG(quantity) <= 100 AND
-	MAX(quantity) <= 100;
+    AVG(quantity) <= 100 AND
+    MAX(quantity) <= 100;
     
-/* 7. Выберите только строки где есть значения в столбце inventory_id 
-Создайте столбец category - если unit_cost > 20 то 'Expensive' в остальных случаях 'others' 
+/* 7. Выберите только строки, где есть значения в столбце inventory_id 
+Создайте столбец category - если unit_cost > 20, то 'Expensive', в остальных случаях 'others' 
 Посчитайте количество продуктов в каждой категории */
-SELECT inventory_id
+SELECT 
+    CASE 
+        WHEN unit_cost > 20 THEN 'Expensive'
+        ELSE 'others'
+    END AS category,
+    COUNT(*) AS product_count
 FROM 
     purchase_order_details
 WHERE 
     inventory_id IS NOT NULL
+GROUP BY 
+    category;
+
 
 
 	
