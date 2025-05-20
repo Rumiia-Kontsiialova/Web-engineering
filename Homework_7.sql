@@ -17,10 +17,7 @@ FROM
     product_quantities pq;
 
 /* 2.  Найти все заказы таблица orders, сделанные после даты самого первого заказа клиента Lee таблица customers. */
-SELECT 
-    *
-FROM
-    orders
+SELECT * FROM orders
 WHERE
     order_date > (SELECT 
 		MIN(o.order_date)
@@ -32,12 +29,9 @@ WHERE
 	c.last_name = 'Lee');
     
 /* 3. Найти все продукты таблицы  products c максимальным target_level */
-SELECT 
-    *
-FROM
-    products
+SELECT * FROM products
 WHERE
     target_level = (SELECT 
 		MAX(target_level)
-	FROM
-		products);
+FROM
+	products);
